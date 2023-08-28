@@ -1,0 +1,90 @@
+---
+const filterAccounts = ['github-sponsors'];
+
+// https://graphql-docs-v2.opencollective.com/welcome
+const openCollectiveQuery = JSON.stringify({
+	query: `
+        query  {
+            account(slug: "tauri") {
+                members(role: BACKER, limit: 1000) {
+                    nodes {
+                        account {
+                            slug
+                            imageUrl (height: 256)
+                            isIncognito
+                        }
+                        totalDonations {
+                            value
+                        }
+                    }
+                }
+            }
+        }
+    `,
+});
+
+const openCollective = await fetch('https://api.opencollective.com/graphql/v2', {
+	method: 'POST',
+	headers: { 'Content-Type': 'application/json' },
+	body: openCollectiveQuery,
+});
+
+var openCollectiveData = await openCollective.json();
+
+var openCollectiveSponsors = openCollectiveData.data.account.members.nodes
+	.filter(
+		(value) =>
+			!filterAccounts.includes(value.account.slug) &&
+			!value.account.slug.startsWith('guest-') &&
+			!value.account.isIncognito
+	)
+	.reduce((acc, item) => {
+		const index = acc.findIndex((element) => element.account.slug == item.account.slug);
+
+		if (index != -1) {
+			// Found a match, add the value
+			acc[index].totalDonations.value += item.totalDonations.value;
+		} else {
+			// New entry, add to the accumulator
+			acc.push(item);
+		}
+		return acc;
+	}, [])
+	.sort((a, b) => b.totalDonations.value - a.totalDonations.value);
+
+// TODO: Types
+// TODO: Caching during dev?
+// TODO: Bundle images during build
+---
+
+<h2>Sponsors</h2>
+<div class="flex">
+	<a href="https://opencollective.com/tauri">Sponsor on Open Collective</a>
+	<a href="https://github.com/sponsors/tauri-apps">Sponsor on GitHub</a>
+</div>
+
+<div class="flex">
+	{
+		openCollectiveSponsors.map((value) => (
+			<a href={`https://opencollective.com/${value.account.slug}`}>
+				<img src={value.account.imageUrl} />
+			</a>
+		))
+	}
+</div>
+
+<style>
+    h2 {
+        text-align: center;
+    }
+	.flex {
+		flex-wrap: wrap;
+		gap: 0.25em;
+	}
+	.flex img {
+		border-radius: 9999px;
+		width: 3em;
+		aspect-ratio: 1;
+		object-fit: contain;
+	}
+</style>
