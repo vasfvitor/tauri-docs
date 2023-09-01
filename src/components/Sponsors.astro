@@ -10,7 +10,7 @@ const openCollectiveQuery = JSON.stringify({
                     nodes {
                         account {
                             slug
-                            imageUrl (height: 256)
+                            imageUrl
                             isIncognito
                         }
                         totalDonations {
@@ -35,6 +35,7 @@ var openCollectiveSponsors = openCollectiveData.data.account.members.nodes
 	.filter(
 		(value) =>
 			!filterAccounts.includes(value.account.slug) &&
+			// Filter out anoymous donations
 			!value.account.slug.startsWith('guest-') &&
 			!value.account.isIncognito
 	)
@@ -74,10 +75,11 @@ var openCollectiveSponsors = openCollectiveData.data.account.members.nodes
 </div>
 
 <style>
-    h2 {
-        text-align: center;
-    }
+	h2 {
+		text-align: center;
+	}
 	.flex {
+		display: flex;
 		flex-wrap: wrap;
 		gap: 0.25em;
 	}
