@@ -66,8 +66,8 @@ export default defineConfig({
 			title: 'Tauri',
 			description: 'The cross-platform app building toolkit',
 			logo: {
-				src: './src/assets/logo.svg',
-				// light: './src/assets/logo_light.svg',
+				dark: './src/assets/logo.svg',
+				light: './src/assets/logo_light.svg',
 				replacesTitle: true,
 			},
 			social: {
@@ -179,6 +179,7 @@ export default defineConfig({
 						{ label: 'Updater', link: '2/guide/updater' },
 						{ label: 'Upload', link: '2/guide/upload' },
 						{ label: 'Websocket', link: '2/guide/websocket' },
+						{ label: 'Window Customization', link: '2/guide/window-customization' },
 						{ label: 'Window State', link: '2/guide/window-state' },
 					],
 				},
