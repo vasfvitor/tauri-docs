@@ -1,0 +1,52 @@
+---
+interface Props {
+	exclude?: boolean;
+	android?: boolean;
+	ios?: boolean;
+	macos?: boolean;
+	windows?: boolean;
+	linux?: boolean;
+}
+
+let { exclude = false, android, ios, macos, windows, linux } = Astro.props;
+
+if (exclude) {
+	ios = !ios;
+	android = !android;
+	macos = !macos;
+	windows = !windows;
+	linux = !linux;
+}
+---
+
+<div class="flex row not-content">
+	<p class:list={[{ disabled: !ios }]}>iOS</p>
+	<p class:list={[{ disabled: !macos }]}>macOs</p>
+	<p class:list={[{ disabled: !android }]}>Android</p>
+	<p class:list={[{ disabled: !windows }]}>Windows</p>
+	<p class:list={[{ disabled: !linux }]}>Linux</p>
+</div>
+
+<style>
+	p {
+		color: rgb(36, 36, 36);
+		opacity: 0.7;
+		background-color: rgb(0, 179, 0);
+		padding: 0px 6px 0px 6px;
+		border-radius: 8px;
+	}
+	.disabled {
+		color: rgb(202, 202, 202);
+		background-color: rgb(63, 63, 63);
+	}
+	.flex {
+		display: flex;
+		font-size: var(--sl-text-sm);
+		flex-wrap: wrap;
+		align-items: center;
+	}
+
+	.flex.row {
+		gap: 0.5em 0.75em;
+	}
+</style>
