@@ -60,8 +60,8 @@ jobs:
       #   working-directory: ./tauri/tooling/api
       #   run: yarn
 
-      # - name: Cleanup JS Docs
-      #   run: rm -rf tauri-docs/docs/api/js/*
+      - name: Cleanup JS Docs
+        run: rm -rf tauri-docs/docs/api/js/*
 
       # - name: Build JS docs
       #   working-directory: ./tauri-docs/packages/js-doc-generator
