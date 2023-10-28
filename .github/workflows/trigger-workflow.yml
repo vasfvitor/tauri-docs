@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # Set a variable to handle the branch
-      CURRENT_BRANCH: "${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tauriBranch || '1.x' }}"
+      CURRENT_BRANCH: "${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tauriBranch || 'origin/1.x' }}"
 
     steps:
       - run: echo "$CURRENT_BRANCH"
