@@ -5,10 +5,6 @@
 name: update-docs-modified
 
 on:
-  push:
-    branches:
-      - ci
-  pull_request:
   repository_dispatch:
     types: [dispatch-test]
   workflow_dispatch:
