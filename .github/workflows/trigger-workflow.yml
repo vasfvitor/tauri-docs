@@ -26,12 +26,13 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # Set a variable to handle the branch
-      BRANCH: "${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tauriBranch || github.event.client_payload.ref }}"
+      CURRENT_BRANCH: "${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tauriBranch || github.event.client_payload.ref }}"
       GITHUB_CONTEXT: ${{ toJson(github) }}
 
     steps:
-      - run: echo "$GITHUB_CONTEXT"
+      - run: echo "$CURRENT_BRANCH"
       - run: echo ${{ github.env.BRANCH }}
+      - run: echo "$BRANCH"
       - name: Checkout tauri
         uses: actions/checkout@v3
         with:
