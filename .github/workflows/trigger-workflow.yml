@@ -20,18 +20,16 @@ on:
       tauriBranch:
         description: 'tauri branch to pull'
         required: false
-        default: 'dev'
 
 jobs:
   update-docs:
     runs-on: ubuntu-latest
     env:
       # Set a variable to handle the branch
-      BRANCH: "${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tauriBranch || github.event.client_payload.ref }}"
+      BRANCH: "${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tauriBranch || github.event.client_payload.sha }}"
 
     steps:
-      
-      - run: echo ${{ github.event.client_payload.ref }}
+      - run: echo ${{ github.env.BRANCH }}
       - name: Checkout tauri
         uses: actions/checkout@v3
         with:
@@ -47,9 +45,9 @@ jobs:
           path: tauri-docs
           submodules: true
 
-      # - name: Update submodules
-      #   working-directory: ./tauri-docs
-      #   run: git submodule update --remote
+      - name: Update submodules
+        working-directory: ./tauri-docs
+        run: git submodule update --remote
 
       # - name: Build typedoc-plugin-markdown
       #   working-directory: ./tauri-docs/packages/typedoc-plugin-markdown
