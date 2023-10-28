@@ -35,7 +35,8 @@ jobs:
         with:
           repository: vasfvitor/tauri
           # here sets the branch
-          ref: ${{ github.env.CURRENT_BRANCH }}
+          ref: 1.x
+          # ref: ${{ github.env.CURRENT_BRANCH }}
           # ref: ${{ github.event.client_payload.ref }}
           path: tauri
 
