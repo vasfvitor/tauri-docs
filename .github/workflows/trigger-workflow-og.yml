@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-License-Identifier: MIT
 
-name: update-docs
+name: update-docs-og
 
 on:
   push:
@@ -24,7 +24,6 @@ on:
       tauriBranch:
         description: 'tauri branch to pull'
         required: false
-        default: 'dev'
 
 jobs:
   update-docs:
@@ -36,6 +35,9 @@ jobs:
 
     steps:
       # Setup
+      - run: echo ${{ github.ref }}
+      - run: echo ${{ github.env.BRANCH }}
+      - run: echo ${{ github.event_name }}
       - run: echo ${{ github.event.inputs.tauriBranch }}
       - name: Checkout tauri
         uses: actions/checkout@v3
@@ -128,7 +130,6 @@ jobs:
       #   run: |
       #     git config --global user.name "${{ github.event.inputs.gitName }}"
       #     git config --global user.email "${{ github.event.inputs.gitEmail }}"
-      - run: echo ${{ github.event_name }}
       - name: Create pull request for updated docs
         # soft fork of https://github.com/peter-evans/create-pull-request for security purposes
         uses: peter-evans/create-pull-request@v3.4.1
