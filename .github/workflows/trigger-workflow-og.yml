@@ -30,15 +30,18 @@ jobs:
   update-docs:
     runs-on: ubuntu-latest
     env:
-      BRANCH: "${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tauriBranch || github.ref }}"
+      CARGO_INCREMENTAL: 0 # This is set to 0 by the rust cache action, but better safe than sorry.
+      CARGO_PROFILE_DEV_DEBUG: 0 # This would add unnecessary bloat to the target folder, decreasing cache efficiency.
+      RUST_BACKTRACE: short
 
     steps:
-      - run: echo ${{ github.env.BRANCH }} - ${{ github.ref }}
+      # Setup
+      - run: echo ${{ github.event.inputs.tauriBranch }}
       - name: Checkout tauri
         uses: actions/checkout@v3
         with:
           repository: vasfvitor/tauri
-          ref: ${{ github.env.BRANCH }}
+          ref: ${{ github.event.inputs.tauriBranch }}
           path: tauri
 
       - name: Checkout tauri-docs
