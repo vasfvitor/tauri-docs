@@ -32,6 +32,7 @@ jobs:
       CARGO_INCREMENTAL: 0 # This is set to 0 by the rust cache action, but better safe than sorry.
       CARGO_PROFILE_DEV_DEBUG: 0 # This would add unnecessary bloat to the target folder, decreasing cache efficiency.
       RUST_BACKTRACE: short
+      CURRENT_BRANCH: "${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tauriBranch || '1.x' }}"
 
     steps:
       # Setup
@@ -39,7 +40,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: tauri-apps/tauri
-          ref: ${{ github.event.inputs.tauriBranch }}
+          ref: ${{ github.env.CURRENT_BRANCH }}
           path: tauri
 
       - name: Checkout tauri-docs
