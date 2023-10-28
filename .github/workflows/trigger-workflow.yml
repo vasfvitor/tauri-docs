@@ -7,7 +7,7 @@ name: update-docs
 on:
   push:
     branches:
-      - dev
+      - ci
   pull_request:
   repository_dispatch:
     types: [dispatch-test]
@@ -24,6 +24,7 @@ on:
       tauriBranch:
         description: 'tauri branch to pull'
         required: false
+        default: 'dev'
 
 jobs:
   update-docs:
@@ -37,7 +38,7 @@ jobs:
         with:
           repository: tauri-apps/tauri
           ref: ${{ github.env.BRANCH }}
-          path: tauri
+          path: tauri 
       - run: echo ${{ github.env.BRANCH }}
       
       - name: Checkout tauri-docs
