@@ -27,10 +27,11 @@ jobs:
     env:
       # Set a variable to handle the branch
       BRANCH: "${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tauriBranch || github.event.client_payload.ref }}"
+      GITHUB_CONTEXT: ${{ toJson(github) }}
 
     steps:
-      - run: echo ${{ fromJson(github) }}
-      - run: echo ${{ github.ref }}
+      - run: echo "$GITHUB_CONTEXT"
+      - run: echo ${{ github.ref }} and "$github.ref"
       - run: echo ${{ github.env.BRANCH }}
       - name: Checkout tauri
         uses: actions/checkout@v3
