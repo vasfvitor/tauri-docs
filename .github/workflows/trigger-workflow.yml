@@ -35,7 +35,7 @@ jobs:
         with:
           repository: vasfvitor/tauri
           # here sets the branch
-          ref: ${{ github.env.BRANCH }}
+          ref: ${{ github.event.client_payload.sha }}
           path: tauri
 
       - name: Checkout tauri-docs
