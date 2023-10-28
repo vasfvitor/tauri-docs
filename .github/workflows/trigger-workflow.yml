@@ -31,14 +31,13 @@ jobs:
 
     steps:
       - run: echo "$CURRENT_BRANCH"
-      - run: echo ${{ github.env.BRANCH }}
-      - run: echo "$BRANCH"
       - name: Checkout tauri
         uses: actions/checkout@v3
         with:
           repository: vasfvitor/tauri
           # here sets the branch
-          ref: ${{ github.event.client_payload.ref }}
+          ref: ${{ github.env.CURRENT_BRANCH }}
+          # ref: ${{ github.event.client_payload.ref }}
           path: tauri
 
       - name: Checkout tauri-docs
