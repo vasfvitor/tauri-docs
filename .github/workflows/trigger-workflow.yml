@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # Set a variable to handle the branch
-      BRANCH: "${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tauriBranch || github.event.client_payload.sha }}"
+      BRANCH: "${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tauriBranch || github.event.client_payload.ref }}"
 
     steps:
       - run: echo ${{ github.env.BRANCH }}
@@ -35,7 +35,7 @@ jobs:
         with:
           repository: vasfvitor/tauri
           # here sets the branch
-          ref: ${{ github.event.client_payload.sha }}
+          ref: ${{ github.event.client_payload.ref }}
           path: tauri
 
       - name: Checkout tauri-docs
