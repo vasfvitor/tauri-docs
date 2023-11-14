@@ -31,7 +31,7 @@
 
 .content details[open] {
 	background-color: var(--sl-color-gray-6);
-	padding-bottom: rem;
+	padding-bottom: 1rem;
 }
 
 .content summary {
