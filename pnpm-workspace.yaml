@@ -4,3 +4,4 @@ packages:
   - 'packages/config-generator'
   - 'packages/tauri-typedoc-theme'
   - 'packages/releases-generator'
+  - 'packages/cli-generator'

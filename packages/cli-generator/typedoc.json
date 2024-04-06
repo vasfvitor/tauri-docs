@@ -1,0 +1,23 @@
+{
+  "tsconfig": "../tauri-v2/tooling/api/tsconfig.json",
+  "entryPoints": [
+    "../tauri-v2/tooling/api/src/app.ts",
+    "../tauri-v2/tooling/api/src/core.ts",
+    "../tauri-v2/tooling/api/src/dpi.ts",
+    "../tauri-v2/tooling/api/src/event.ts",
+    "../tauri-v2/tooling/api/src/menu.ts",
+    "../tauri-v2/tooling/api/src/mocks.ts",
+    "../tauri-v2/tooling/api/src/path.ts",
+    "../tauri-v2/tooling/api/src/tray.ts",
+    "../tauri-v2/tooling/api/src/webview.ts",
+    "../tauri-v2/tooling/api/src/window.ts"
+  ],
+  "githubPages": false,
+  "out": "../../src/content/docs/references/v2/other/",
+  "json": "../../src/content/docs/references/v2/other/js-api.json",
+  
+  "pretty": false,
+  "excludePrivate": true,
+  "plugin": ["typedoc-plugin-markdown"],
+  "outputFileStrategy": "Modules"
+}
